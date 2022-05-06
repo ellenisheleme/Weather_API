@@ -1,15 +1,20 @@
 // DOM variables
 const userCity = document.getElementById("city");
 const weatherDisplay = document.getElementById("weather");
-const cityList = document.getElementById("bonus-buttons");
+const cityList = document.getElementById("Buttons");
 const submitBtn = document.getElementById("submit-btn");
+let baseURL = "http://api.weatherapi.com/v1/current.json";
+let apiKey = "3ddf5074f36545f3bf1160157220505";
+
+// make a request function
 
 const makeRequest = async (userInput) => {
 //   console.log(userInput);
   let response = await fetch(
-    `http://api.weatherapi.com/v1/current.json?key=3ddf5074f36545f3bf1160157220505&q=${userInput}`
+    `${baseURL}?key=${apiKey}&q=${userInput}`
   );
     console.log(response);
+    //to handel error use if statment 
   if (response.ok) {
     let data = await response.json();
     renderWeather(data);
@@ -28,6 +33,7 @@ if (!localStorage.getItem("city")) {
   let currentCity = localStorage.getItem("city");
   makeRequest(currentCity);
 }
+// gets user input and submit the request
 
 const handleSubmit = (event) => {
   event.preventDefault();
